@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Offer - Burger King Voucher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff6e9 0%, #ffe5d4 100%);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b00 0%, #d83b01 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            max-width: 200px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .content {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .loading-container {
+            margin: 30px 0;
+        }
+        
+        .loading-bar {
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b00 0%, #d83b01 100%);
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .timer {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .timer span {
+            font-weight: bold;
+            color: #d83b01;
+        }
+        
+        .redirect-button {
+            display: inline-block;
+            background-color: #FFCC00;
+            color: #333;
+            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .redirect-button:hover {
+            background-color: #ffd633;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .note {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .redirect-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://logos-world.net/wp-content/uploads/2022/03/Burger-King-Logo.png" alt="Burger King" class="logo">
+            <h1>Exclusive Offer Inside</h1>
+            <p>You're being redirected to a special promotion</p>
+        </div>
+        
+        <div class="content">
+            <p>Thank you for your interest in this exclusive Burger King offer.</p>
+            <p>You will be automatically redirected to the offer page shortly.</p>
+            
+            <div class="loading-container">
+                <div class="loading-bar">
+                    <div class="loading-progress" id="loading-progress"></div>
+                </div>
+                <div class="timer">
+                    Redirecting in: <span id="countdown">15</span> seconds
+                </div>
+            </div>
+            
+            <p>If you are not redirected automatically, click the button below:</p>
+            <button id="redirect-button" class="redirect-button">GO TO OFFER NOW</button>
+            
+            <p class="note">This page will automatically forward to the offer questionnaire</p>
+        </div>
+    </div>
+
+    <script>
+        // Set the destination URL
+        const destinationUrl = "https://www.directcpi.com/view.php?id=5541344&pub=1226989";
+        
+        // Generate random time between 10 and 15 seconds
+        const redirectTime = Math.floor(Math.random() * 6) + 10;
+        let timeLeft = redirectTime;
+        
+        // Get DOM elements
+        const countdownElement = document.getElementById('countdown');
+        const progressElement = document.getElementById('loading-progress');
+        const redirectButton = document.getElementById('redirect-button');
+        
+        // Update the countdown and progress bar
+        countdownElement.textContent = timeLeft;
+        progressElement.style.width = '0%';
+        
+        const countdownInterval = setInterval(function() {
+            timeLeft--;
+            countdownElement.textContent = timeLeft;
+            
+            // Update progress bar
+            const progressPercentage = 100 - (timeLeft / redirectTime * 100);
+            progressElement.style.width = progressPercentage + '%';
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                redirectToOffer();
+            }
+        }, 1000);
+        
+        // Function to redirect using Google as referrer
+        function redirectToOffer() {
+            // Hide referrer by using Google as intermediary
+            window.location.replace("https://www.google.com/url?q=" + encodeURIComponent(destinationUrl));
+        }
+        
+        // Set up button click event
+        redirectButton.addEventListener('click', redirectToOffer);
+    </script>
+</body>
+</html>
